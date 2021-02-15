@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.logo {
+   height: 200px;
+   width: 700px;
+   padding-left: 150px;
+}
+
+
+/*splash Screen */
+
+/* width: 1300px;
+height: 800px; */
+
+
+#splashScreen {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/loadinggif.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+    cursor: pointer;
+    position: relative;
+}
+
+#StartButton {
+    position: absolute;
+    margin-left: 53%;
+    margin-top: 53%;
+    width: 430px;
+    height: 80px;
+    /* background: rgba(34, 34, 34, 0.618); */
+    background: transparent;
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 900;
+    -webkit-text-stroke: 1px #000000;
+    border: none;
+    color: #fff;
+    outline: none;
+}
+
+#StartButton:hover {
+    color: black;
+    cursor: pointer;
+}
+
+#startStoryBtn{
+    position: absolute;
+    margin-left: 13%;
+    margin-top: 53%;
+    width: 430px;
+    height: 80px;
+    /* background: rgba(34, 34, 34, 0.618); */
+    background: transparent;
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 900;
+    -webkit-text-stroke: 1px #000000;
+    border: none;
+    color: #fff;
+    outline: none;
+}
+
+#startStoryBtn:hover{
+    color: black;
+    cursor: pointer;
+}
+
+
+/* canvas css */
+
+#myCanvas {
+    width: 1300px;
+    height: 800px;  
+    border: 4px solid black;
+    background: url(https://i.pinimg.com/originals/54/fb/d3/54fbd3e940d1e222e5d2d55f5644c241.gif);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+#Bosslevel{
+    width: 1300px;
+    height: 800px;  
+    border: 4px solid black;
+    background: url(./src//animated.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+
+#story0 {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/newstoryline/animated\ 6.GIF);
+    background-size:cover;
+    background-position: center;
+    background-repeat: none;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+#story1 {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/newstoryline/animated.GIF);
+    background-size:cover;
+    background-position: center;
+    background-repeat: none;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;  */
+}
+
+#story2 {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/newstoryline/IMG_0598.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+#story3 {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/newstoryline/animated\ 4.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+#story4 {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/storyline/story4.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+#story5 {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/newstoryline/animated\ 2.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+#loading {
+    width: 1300px;
+    height: 800px;
+    border: 4px solid black;
+    background: url(./src/newstoryline/animated\ 3.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+
+.animate__fadeInDown {
+    width: 1000px;
+    height: 200px; 
+    background-color: rgba(38, 37, 37, 0.7);
+    margin-top: 43%;
+    margin-left: 5%;
+    border-radius: 30px;
+    float: left;
+    /* text-align: center;
+    vertical-align: middle; */
+    /* line-height: 200px; 
+    font-size: 24px; 
+    color: #fff; */
+    overflow: hidden;
+    background: url(./src/textbox.png);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+.text-story {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  margin-left: 5%;
+  margin-top: 8%;
+  letter-spacing: .10em;
+  font-size: 20px;
+  color: #fff;
+  animation: typing 3.5s steps(40, end),blink-caret .75s step-end infinite;
+  font-family: 'Press Start 2P', cursive;
+  -webkit-text-stroke: 2px #000000;
+}
+
+.nextBtn {
+    margin-left: 5%;
+    margin-top: 53%;
+    width: 100px;
+    height: 100px;
+    background: url(./src/next8bit.png);
+    background-size: 100% 100%;
+    background-repeat: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    float: right;
+}

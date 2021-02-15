@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <title>iamDuck</title>
+</head>
+<body>
+    
+        <!-- <img src="./src/Screen Shot 2021-02-08 at 10.06.00 AM.png" alt="iamducklogo" class="logo">
+        <br> -->
+
+        <div id="splashScreen" style="display: block;">
+            <audio  src="./src/loadmusic.mp3" id='music-load'>
+                 <!-- <source src="./src/loadmusic.mp3" type="audio/ogg">  -->
+            </audio> 
+            <button id='sound-button' onclick="playPause()">Play &#9658</button>
+            <input type="button" id="StartButton" value="Survival" onclick="startSurvivalMode()">
+            <input type="button" id="startStoryBtn" value="Story Mode" onclick="startStoryMode()">
+        </div>
+
+        <!-- STORY LINE -->
+
+        <div id="story0" style="display: none;">
+            <div class="animate__animated animate__fadeInDown">
+                <p class="text-story">Since the beginning of mankind...</p>
+            </div>
+            <button onclick="changeStory0()" class="nextBtn" value="Next"></button>
+        </div>
+
+        <div id="story1" style="display: none;">
+            <div class="animate__animated animate__fadeInDown"><p class="text-story">Ducks have been hunted...</p></div>
+            <button onclick="changeStory1()" class="nextBtn" value="Next"></button>
+        </div>
+        <div id="story2" style="display: none;">
+            <div class="animate__animated animate__fadeInDown"> <p class="text-story">MURDERED AND BRUTALIZED!!</p> </div>
+            <button onclick="changeStory2()" class="nextBtn" value="Next"></button>
+        </div>
+        <div id="story3" style="display: none;">
+            <div class="animate__animated animate__fadeInDown"> <p class="text-story">Alas the last two ducks where killed!</p></div>
+            <button onclick="changeStory3()" class="nextBtn" value="Next"></button>
+        </div>
+        <div id="story4" style="display: none;">
+            <div class="animate__animated animate__fadeInDown"><p class="text-story">Meanwhile in the depths of hell...</p></div>
+            <button onclick="changeStory4()" class="nextBtn" value="Next"></button>
+        </div>
+        <div id="story5" style="display: none;">
+            <div class="animate__animated animate__fadeInDown"><p class="text-story">A spawn of vengeance shook the underworld.</p></div>
+            <button onclick="changeStory5()" class="nextBtn" value="Next"></button>
+        </div>
+        <div id="loading" style="display: none;">
+            <div class="animate__animated animate__fadeInDown"><p class="text-story">*crackkkkkk*</p></div>
+            <button onclick="changeStory6()" class="nextBtn" value="Next"></button>
+        </div>
+
+        <canvas id="myCanvas" style="display: none;"></canvas>
+        <canvas id="Bosslevel" style="display: none;"></canvas>
+   
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
