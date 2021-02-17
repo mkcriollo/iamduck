@@ -1612,7 +1612,7 @@ function animation(){
     if(pickedStory == true){
         ctx.fillText("Toast: " + points + "/80",10,50)
     }
-    if(points == 1 && pickedStory == true){
+    if(points == 80 && pickedStory == true){
         if(pausedBossLvl == true){
             pausedBossLvl = false
         }
