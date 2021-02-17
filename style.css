@@ -26,6 +26,8 @@ height: 800px; */
 
 
 #splashScreen {
+    /* width: 80%;
+    height: 100%; */
     width: 1300px;
     height: 800px;
     border: 4px solid black;
@@ -35,6 +37,7 @@ height: 800px; */
     cursor: pointer;
     position: relative;
 }
+
 
 #StartButton {
     position: absolute;
@@ -86,17 +89,20 @@ height: 800px; */
 /* canvas css */
 
 #myCanvas {
-    width: 1300px;
-    height: 800px;  
+    width: 1250px;
+    height: 750px;  
+    /* width: 80%;
+    height: 100%; */
     border: 4px solid black;
     background: url(https://i.pinimg.com/originals/54/fb/d3/54fbd3e940d1e222e5d2d55f5644c241.gif);
     background-size: 100% 100%;
     background-repeat: none;
 }
 
+
 #Bosslevel{
-    width: 1300px;
-    height: 800px;  
+    width: 1250px;
+    height: 750px;   
     border: 4px solid black;
     background: url(./src//animated.GIF);
     background-size: 100% 100%;
@@ -105,8 +111,8 @@ height: 800px; */
 
 
 #story0 {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/newstoryline/animated\ 6.GIF);
     background-size:cover;
@@ -118,8 +124,8 @@ height: 800px; */
 }
 
 #story1 {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/newstoryline/animated.GIF);
     background-size:cover;
@@ -131,40 +137,40 @@ height: 800px; */
 }
 
 #story2 {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/newstoryline/IMG_0598.GIF);
     background-size: 100% 100%;
     background-repeat: none;
 }
 #story3 {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/newstoryline/animated\ 4.GIF);
     background-size: 100% 100%;
     background-repeat: none;
 }
 #story4 {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/storyline/story4.GIF);
     background-size: 100% 100%;
     background-repeat: none;
 }
 #story5 {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/newstoryline/animated\ 2.GIF);
     background-size: 100% 100%;
     background-repeat: none;
 }
 #loading {
-    width: 1300px;
-    height: 800px;
+    width: 1250px;
+    height: 750px;  
     border: 4px solid black;
     background: url(./src/newstoryline/animated\ 3.GIF);
     background-size: 100% 100%;
@@ -182,11 +188,10 @@ height: 800px; */
 }
 
 .animate__fadeInDown {
-    width: 1000px;
-    height: 200px; 
-    background-color: rgba(38, 37, 37, 0.7);
-    margin-top: 43%;
-    margin-left: 5%;
+    width: 800px;
+    height: 150px; 
+    margin-top: 46%;
+    margin-left: 18%;
     border-radius: 30px;
     float: left;
     /* text-align: center;
@@ -195,9 +200,13 @@ height: 800px; */
     font-size: 24px; 
     color: #fff; */
     overflow: hidden;
-    background: url(./src/textbox.png);
-    background-size: 100% 100%;
+    /* background: url(./src/dlf.pt-pokemon-text-box-png-5223099.png);
+    background-size: 100% 100%; */
+    background-color: rgba(38, 37, 37, 0.591);
     background-repeat: none;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .text-story {
@@ -207,17 +216,17 @@ height: 800px; */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   margin-left: 5%;
   margin-top: 8%;
-  letter-spacing: .10em;
-  font-size: 20px;
-  color: #fff;
+  /* letter-spacing: .07em; */
+  font-size: 16px;
+  color: white;
   animation: typing 3.5s steps(40, end),blink-caret .75s step-end infinite;
   font-family: 'Press Start 2P', cursive;
-  -webkit-text-stroke: 2px #000000;
+  /* -webkit-text-stroke: 2px #000000; */
 }
 
 .nextBtn {
     margin-left: 5%;
-    margin-top: 53%;
+    margin-top: 52%;
     width: 100px;
     height: 100px;
     background: url(./src/next8bit.png);
@@ -227,4 +236,38 @@ height: 800px; */
     outline: none;
     cursor: pointer;
     float: right;
+}
+
+#loading-game-screen{
+    width: 1250px;
+    height: 750px;  
+    border: 4px solid black;
+    background: url(./src/gameloadingscreen.gif);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+#loading-boss-screen{
+    width: 1250px;
+    height: 750px;  
+    border: 4px solid black;
+    background: url(./src/bossload.gif);
+    /* background-color: black; */
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+#loading-game-screen-survival {
+    width: 1250px;
+    height: 750px;  
+    border: 4px solid black;
+    background: url(./src/IMG_1388.GIF);
+    /* background-color: black; */
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+.links{
+    display: flex;
+    flex-wrap: wrap;
 }

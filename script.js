@@ -1,21 +1,3 @@
-// Sound 
-
-let audio = document.getElementById('music-load')
-let playPauseButton = document.getElementById('sound-button')
-let playcount = 0
-
-function playPause(){
-    if(playcount == 0){
-        playcount = 1;
-        audio.play();
-        playPauseButton.innerHTML = "Pause"
-    } else {
-        playcount = 0;
-        audio.pause();
-        playPauseButton.innerHTML = "Play &#9658"
-    }
-}
-
 // splash 
 
 const startSound = document.createElement('audio');
@@ -29,6 +11,8 @@ function startStoryMode(){
             splash.style.display = 'none'
             storyScene0.style.display = 'block'
         } 
+        storyLoadingSound.load();
+        storyLoadingSound.play();
 }
 
 
@@ -41,6 +25,8 @@ let storyScene3 = document.getElementById('story3')
 let storyScene4 = document.getElementById('story4')
 let storyScene5 = document.getElementById('story5')
 let storyScene6 = document.getElementById('loading')
+let gameLoading = document.getElementById('loading-game-screen')
+let bossLoading = document.getElementById('loading-boss-screen')
 
 function changeStory0(){
      if(storyScene0.style.display === 'block'){
@@ -80,29 +66,59 @@ function changeStory5(){
         } 
 }
 function changeStory6(){
-    let thegame = document.getElementById('myCanvas');
-
      if(storyScene6.style.display === 'block'){
             storyScene6.style.display = 'none'
+            gameLoading.style.display = 'block'
+        } 
+}
+function changeLoading(){
+    let thegame = document.getElementById('myCanvas');
+
+     if(gameLoading.style.display === 'block'){
+            gameLoading.style.display = 'none'
             thegame.style.display = 'block'
             canvasPos = canvas.getBoundingClientRect();
         } 
+    storyLoadingSound.pause();
     pickedStory = true;
     togglePause();
+    mainMusic.load();
     mainMusic.play();
-    
 }
+function bossLoadingScreen(){
+    bossLoadingSound.load();
+    bossLoadingSound.play();
+     if(thegame.style.display === 'block'){
+            thegame.style.display = 'none'
+            bossLoading.style.display = 'block'
+        }   
+}
+
+// function changeBossLoading(){
+//      if(bossLoading.style.display === 'block'){
+//             bossLoading.style.display = 'none'
+//             bossLvl.style.display = 'block'
+//         }  
+//     bossLevel();
+// }
+
 
 // start survival
 let splash = document.getElementById('splashScreen');
 let thegame = document.getElementById('myCanvas');
+let survivalInfo = document.getElementById('loading-game-screen-survival')
+
+function survivalInstructions(){
+    if(splash.style.display === 'block'){
+        startSound.play();
+        splash.style.display = 'none'
+        survivalInfo.style.display = 'block'
+    } 
+}
 
 function startSurvivalMode(){
-    let thegame = document.getElementById('myCanvas');
-
-        if(splash.style.display === 'block'){
-            startSound.play();
-            splash.style.display = 'none'
+        if(survivalInfo.style.display === 'block'){
+            survivalInfo.style.display = 'none'
             thegame.style.display = 'block'
             canvasPos = canvas.getBoundingClientRect();
         } 
@@ -120,6 +136,19 @@ let bossBattleMusic = new Audio();
 bossBattleMusic.src = './src/A Slave To No One MP3.mp3';
 bossBattleMusic.loop = true;
 bossBattleMusic.volume = 0.1;
+
+let bossLoadingSound = new Audio();
+bossLoadingSound.src = './src/Evil Laugh Sound Effect.mp3';
+bossLoadingSound.loop = true;
+bossLoadingSound.volume = 0.5;
+
+let storyLoadingSound = new Audio();
+storyLoadingSound.src = './src/Secret of Evermore Soundtrack - 44 - Collosia, Chamber 1.mp3';
+storyLoadingSound.loop = true;
+storyLoadingSound.volume = 0.7;
+
+let extraLifeSound = new Audio();
+extraLifeSound.src = './src/17.mp3';
 
 let taunt = new Audio();
 taunt.src = './src/Meatshield/Archer_Taunt_001.wav'
@@ -151,10 +180,13 @@ villianVoice3.src = "./src/bossvoice/demon-go (mp3cut.net).mp3"
 villianVoice3.volume = 1;
 // canvas
 
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 1300;
-canvas.height = 800;
+canvas.width = 1250;
+canvas.height = 750;
+// canvas.width = widthpixels;
+// canvas.height = heightpixels;
 let pickedStory = false;
 
 let points = 0;
@@ -163,6 +195,8 @@ this.life = 3;
 let speed = 500;
 let flyspeed = 700;
 let bombspeed = 150;
+let shield = false;
+let frozen = false;
 ctx.font = "50px Georgia" 
 
 
@@ -192,6 +226,12 @@ const duckLeft = new Image();
 duckLeft.src = './src/duckleft/duckrun.png';
 const duckRight = new Image();
 duckRight.src = './src/duckvert.png';
+
+const shieldLeft = new Image();
+shieldLeft.src = './src/shieldleft.png'
+
+const shieldRight = new Image();
+shieldRight.src = './src/vertshield.png'
 
 
 class Player{
@@ -231,6 +271,8 @@ class Player{
         if(mouse.y != this.y){
             this.y -= dy/20;
         }
+
+    
     }
 
     draw(){
@@ -247,18 +289,32 @@ class Player{
         // ctx.fill();
         // ctx.closePath();
         // ctx.stroke();
-
-        ctx.save()
-        ctx.translate(this.x,this.y);
-        ctx.rotate(this.angle);
-        if(this.x >= mouse.x){
-            ctx.drawImage(duckLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 60, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
-        } else {
-            ctx.drawImage(duckRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 70, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
-        }
-        ctx.restore()
-        for (let i = 0; i < this.projectiles.length; i++) {
-            this.projectiles[i].update(this.ctx)      
+        if(shield == false){
+            ctx.save()
+            ctx.translate(this.x,this.y);
+            ctx.rotate(this.angle);
+            if(this.x >= mouse.x){
+                ctx.drawImage(duckLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 60, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+            } else {
+                ctx.drawImage(duckRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 70, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+            }
+            ctx.restore()
+            for (let i = 0; i < this.projectiles.length; i++) {
+                this.projectiles[i].update(this.ctx)      
+            }
+        } else if(shield == true) {
+            ctx.save()
+            ctx.translate(this.x,this.y);
+            ctx.rotate(this.angle);
+            if(this.x >= mouse.x){
+                ctx.drawImage(shieldLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 60, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+            } else {
+                ctx.drawImage(shieldRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 70, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+            }
+            ctx.restore()
+            for (let i = 0; i < this.projectiles.length; i++) {
+                this.projectiles[i].update(this.ctx)      
+            }
         }
     }
 }
@@ -269,36 +325,244 @@ duckquack.src = "./src/toyducksound-[AudioTrimmer.com].mp3"
 
 const player = new Player();
 
-// Lifes 
-const fullHeart = new Image();
-fullHeart.src = './src/extralife1.png'
-const emptyHeart = new Image();
-emptyHeart.src = './src/0-percent.png'
+//Powerup shield 
 
-let lifebar = []
+const sheildImg = new Image();
+sheildImg.src = './src/shieldCollected.png'
+
+const shieldArr = [];
+
+class Shield {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 100;
+        this.radius = 50;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteHeight = 485;
+        this.spriteWidth = 540;
+        this.frames = 0;
+        this.speed = Math.random() * 4;
+        this.distance;
+    }
+
+    update(){
+        this.y -= this.speed
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        this.distance = Math.sqrt(dx * dx + dy * dy);    
+    }
+
+    draw(){
+        // ctx.fillStyle = 'white'
+        // ctx.beginPath();
+        // ctx.arc(this.x,this.y,this.radius, 0, Math.PI * 2)
+        // ctx.fill();
+        // ctx.closePath();
+        // ctx.stroke();
+
+        ctx.drawImage(sheildImg,this.x - 50, this.y - 50, this.radius * 2, this.radius * 2)
+    }
+}
+
+function printShield(){
+    if(gframes % 3000 === 0 && gframes != 0){
+        shieldArr.push(new Shield());
+        (shieldArr)
+    }
+
+    for (let i = 0; i < shieldArr.length; i++) {
+         let shieldOne = shieldArr[i]
+         shieldOne.update();
+         shieldOne.draw();
+        if(shieldOne.y < 0){
+            shieldArr.splice(i, 1)
+            i--;
+        }  
+        if (shieldOne.distance < shieldOne.radius + player.radius){
+            shield = true;
+            setTimeout(function(){
+                shield = false
+            },6000)
+            shieldArr.splice(i,1);
+            i--;
+        }
+    }
+
+}
+
+//Powerup Freeze
+
+const freezeImg = new Image();
+freezeImg.src = './src/time.png'
+
+const freezeArr = [];
+
+class Freeze {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 100;
+        this.radius = 50;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteHeight = 485;
+        this.spriteWidth = 540;
+        this.frames = 0;
+        this.speed = Math.random() * 4;
+        this.distance;
+    }
+
+    update(){
+        this.y -= this.speed
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        this.distance = Math.sqrt(dx * dx + dy * dy);
+
+        if(gframes % 5 === 0){
+            this.frames++
+            if(this.frames >= 6){
+                this.frames = 0;
+            }
+            if(this.frames == 2 || this.frames == 5){
+                this.frameX = 0;
+            } else {
+                this.frameX++;
+            }
+            if(this.frames < 2){
+                this.frameY = 0;
+            }
+            if(this.frames < 5){
+                this.frameY = 1;
+            } else {
+                this.frameY = 0;
+            }
+        }
+    
+    }
+
+    draw(){
+        // ctx.fillStyle = 'White'
+        // ctx.beginPath();
+        // ctx.arc(this.x,this.y,this.radius, 0, Math.PI * 2)
+        // ctx.fill();
+        // ctx.closePath();
+        // ctx.stroke();
+
+        ctx.drawImage(freezeImg,this.x - 50, this.y - 50, this.radius * 2, this.radius * 2)
+    }
+}
+
+function printFreeze(){
+    if(gframes % 4200 === 0 && gframes != 0){
+       freezeArr.push(new Freeze());
+    }
+
+    for (let i = 0; i < freezeArr.length; i++) {
+         let freezeOne = freezeArr[i]
+         freezeOne.update();
+         freezeOne.draw();
+        if(freezeOne.y < 0){
+            freezeArr.splice(i, 1)
+            i--;
+        }  
+        if (freezeOne.distance < freezeOne.radius + player.radius){
+            frozen = true;
+            setTimeout(function(){
+                frozen = false
+            },6000)
+            freezeArr.splice(i,1);
+            i--;
+        }
+    }
+
+}
+
+// Lifes 
+const threeHeart = new Image();
+threeHeart.src = './src/3hearts.png'
+const twoHeart = new Image();
+twoHeart.src = './src/2hearts.png'
+const oneHeart = new Image();
+oneHeart.src = './src/1heart.GIF'
+
+const threeHeartsBlack = new Image();
+threeHeartsBlack.src = "./src/3blackhearts.png"
+const twoHeartsBlack = new Image();
+twoHeartsBlack.src = "./src/2heartsblack .png"
+const oneHeartsBlack = new Image();
+oneHeartsBlack.src = "./src/oneblackheart.GIF"
+
+
+class bossLvlLife {
+    constructor(){
+        this.x = 800;
+        this.y = 50;
+        this.radius = 85;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteHeight = 485;
+        this.spriteWidth = 1400;
+        this.spriteHeight2 = 650;
+        this.spriteWidth2 = 1400;
+    }
+
+    draw(){  
+        // hero battle life
+        if(heroChar.score == 3){
+            context.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x + 200, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
+        }
+
+        if(heroChar.score == 2){
+            context.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x + 200, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
+        }
+
+        if(heroChar.score == 1){
+            context.drawImage(oneHeart, this.x + 200, this.y - 50, this.radius,this.radius)
+        }
+
+        // villian boss life
+
+        if(villianChar.score == 3){
+            context.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 790, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
+        }
+
+        if(villianChar.score  == 2){
+            context.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x - 790, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
+        }
+
+        if(villianChar.score  == 1){
+            context.drawImage(oneHeart, this.x - 790, this.y - 50, this.radius,this.radius)
+        }
+    }
+}
+
+const bossLvlLifes = new bossLvlLife();
 
 class Life {
     constructor(){
         this.x = 800;
         this.y = 50;
-        this.radius = 60;
+        this.radius = 85;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteHeight = 485;
+        this.spriteWidth = 1400;
+        this.spriteHeight2 = 650;
+        this.spriteWidth2 = 1400;
     }
 
-    draw(){
-        ctx.fillStyle = '#04a46c';
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.closePath();
-        ctx.stroke();
-        
-       for (let i = 0; i <= life; i++) {
-           
-           ctx.drawImage(fullHeart, this.x - 75 , this.y - 70, this.radius * 2.5,this.radius * 2.5)
-           this.x += 50
-       }
-        // heartimg = ctx.drawImage(fullHeart, this.x - 37, this.y - 40, this.radius * 2.5,this.radius * 2.5)
-        // ctx.drawImage(fullHeart, this.x - 75 , this.y - 70, this.radius * 2.5,this.radius * 2.5)
+    draw(){  
+        if(life == 3){
+            ctx.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x + 200, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
+        }
+
+        if(life == 2){
+            ctx.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x + 200, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
+        }
+
+        if(life == 1){
+            ctx.drawImage(oneHeart, this.x + 200, this.y - 50, this.radius,this.radius)
+        }
     }
 }
 
@@ -323,7 +587,11 @@ class Gem {
     }
 
     update(){
-        this.y -= this.speed
+        if(frozen == true){
+            this.y -= 0
+        } else {
+            this.y -= this.speed
+        }
         const dx = this.x - player.x;
         const dy = this.y - player.y;
         this.distance = Math.sqrt(dx * dx + dy * dy)
@@ -348,8 +616,12 @@ eatBread.src = './src/eatbread.mp3';
 
 function printGems(){
     if(gframes % 50 === 0){
+        if(frozen == true){
+
+        } else {
         gemsArray.push(new Gem());
         (gemsArray)
+        }
     }
 
     for (let i = 0; i < gemsArray.length; i++) {
@@ -374,7 +646,98 @@ function printGems(){
 
 }
 
-//bombs and Droids
+const extraLifePic = new Image();
+extraLifePic.src = './src/spriteextralife.png'
+
+const extraLifeArr = [];
+
+class ExtraLife {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 100;
+        this.radius = 50;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteHeight = 485;
+        this.spriteWidth = 540;
+        this.frames = 0;
+        this.speed = Math.random() * 4;
+        this.distance;
+    }
+
+    update(){
+        if(frozen == true){
+            this.y -= 0
+        } else {
+            this.y -= this.speed
+        }
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        this.distance = Math.sqrt(dx * dx + dy * dy);
+
+        if(gframes % 5 === 0){
+            this.frames++
+            if(this.frames >= 6){
+                this.frames = 0;
+            }
+            if(this.frames == 2 || this.frames == 5){
+                this.frameX = 0;
+            } else {
+                this.frameX++;
+            }
+            if(this.frames < 2){
+                this.frameY = 0;
+            }
+            if(this.frames < 5){
+                this.frameY = 1;
+            } else {
+                this.frameY = 0;
+            }
+        }
+    
+    }
+
+    draw(){
+        // ctx.fillStyle = 'black'
+        // ctx.beginPath();
+        // ctx.arc(this.x,this.y,this.radius, 0, Math.PI * 2)
+        // ctx.fill();
+        // ctx.closePath();
+        // ctx.stroke();
+
+        ctx.drawImage(extraLifePic, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 60, this.y - 60, this.spriteHeight/4, this.spriteHeight/4)
+    }
+}
+
+function printExtraLife(){
+    if(gframes % 5000 === 0 && gframes != 0){
+        extraLifeArr.push(new ExtraLife());
+        (extraLifeArr)
+    }
+
+    for (let i = 0; i < extraLifeArr.length; i++) {
+         let extralifeOne = extraLifeArr[i]
+         extralifeOne.update();
+         extralifeOne.draw();
+        if(extralifeOne.y < 0){
+            extraLifeArr.splice(i, 1)
+            i--;
+        }  
+        if (extralifeOne.distance < extralifeOne.radius + player.radius){
+            extraLifeSound.play();
+            if(life == 3){
+                life = 3
+            } else {
+            life++;
+            }
+            extraLifeArr.splice(i,1);
+            i--;
+        }
+    }
+
+}
+
+//bombs
 const mine1 = new Image();
 mine1.src = './src/bombspirtesheet.png'
 
@@ -382,6 +745,7 @@ const bombArray = []
 
 class Bomb {
     constructor(){
+        this.exploded = false;
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 100;
         this.radius = 50;
@@ -390,13 +754,19 @@ class Bomb {
         this.spriteHeight = 485;
         this.spriteWidth = 555;
         this.frames = 0;
-        this.speed = Math.random() * 4;
+        this.min = 0
+        this.max = 5
+        this.speed = Math.random() * (this.max - this.min) + this.min;
         this.distance;
         this.noise = Math.random() <= 0.5 ? 'bombsound1' : 'bombsound2'
     }
 
     update(){
-        this.y -= this.speed
+        if(frozen == true){
+            this.y -= 0
+        } else {
+            this.y -= this.speed
+        }
         const dx = this.x - player.x;
         const dy = this.y - player.y;
         this.distance = Math.sqrt(dx * dx + dy * dy)
@@ -421,8 +791,9 @@ class Bomb {
             } else {
                 this.frameY = 0;
             }
+          }
         }
-        }
+
     }
 
     draw(){
@@ -434,6 +805,7 @@ class Bomb {
         // ctx.stroke();
 
         // ctx.drawImage(mine1, this.x - 120, this.y - 60, this.radius * 8,this.radius * 4)
+        
         ctx.drawImage(mine1, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 90, this.y - 120, this.spriteWidth/3, this.spriteHeight/3)
     }
 }
@@ -455,12 +827,26 @@ function printBombs(){
         case 30:
             bombspeed = 120
             break
+        case 40:
+            bombspeed = 110
+        case 50:
+            bombspeed = 100
+        case 60: 
+            bombspeed = 90
+        case 70:
+            bombspeed = 80
+        case 80:
+            bombspeed = 70
         default:
             bombspeed = bombspeed
     }
-
+    
     if(gframes % bombspeed === 0){
+        if(frozen == true){
+
+        } else {
         bombArray.push(new Bomb());
+        }
     }
 
     for (let i = 0; i < bombArray.length; i++) {
@@ -477,7 +863,11 @@ function printBombs(){
             } else {
                 bombSound.play()
             }
-            life--;
+            if(shield == true){
+                life == life;
+            } else {
+                life--
+            }
             bombArray.splice(i,1)
             i--;
             if(life === 0){
@@ -519,7 +909,11 @@ class Monster {
     }
 
     update(){
-        this.x -= this.speed
+        if(frozen == true){
+            this.x -= 0
+        } else {
+            this.x -= this.speed
+        }
         const dx = this.x - player.x;
         const dy = this.y - player.y;
         this.distance = Math.sqrt(dx * dx + dy * dy)
@@ -570,12 +964,20 @@ function printMonster(){
         case 30:
             speed = 200
             break
+        case 40:
+            speed = 170
+        case 50:
+            speed = 150
         default:
             speed = speed
     }
 
      if(gframes % speed == 0){
-        monsterArray.push(new Monster());
+         if(frozen == true){
+
+         } else {
+            monsterArray.push(new Monster());
+         }
     }
 
     for (let i = 0; i < monsterArray.length; i++) {
@@ -592,7 +994,11 @@ function printMonster(){
             } else {
                 duckquack.play()
             }
-            life--;
+            if(shield == true){
+                life == life;
+            } else {
+                life--
+            }
             monsterArray.splice(i,1)
             i--;
             if(life === 0){
@@ -630,7 +1036,11 @@ class Monster2 {
     }
 
     update(){
-        this.x += this.speed
+        if(frozen == true){
+            this.x -= 0
+        } else {
+            this.x += this.speed
+        }
         const dx = this.x - player.x;
         const dy = this.y - player.y;
         this.distance = Math.sqrt(dx * dx + dy * dy);
@@ -688,12 +1098,20 @@ function printflyMonster(){
         case 30:
             flyspeed = 200
             break
+        case 40:
+            speed = 170
+        case 50:
+            speed = 150
         default:
             flyspeed = flyspeed
     }
 
     if(gframes % flyspeed == 0){
-        monster2Array.push(new Monster2());
+        if(frozen == true){
+       
+        } else {
+            monster2Array.push(new Monster2());
+        }
     }
 
 
@@ -713,7 +1131,11 @@ function printflyMonster(){
             } else {
                 duckquack.play()
             }
-            life--;
+            if(shield == true){
+                life == life;
+            } else {
+                life--
+            }
             monster2Array.splice(i,1)
             i--;
             if(life === 0){
@@ -775,20 +1197,23 @@ const bossLvl = document.getElementById('Bosslevel');
 const context = bossLvl.getContext('2d');
 const paddleWidth = 90;
 const paddleHeight = 15;
-bossLvl.width = 1300;
-bossLvl.height = 800;
+bossLvl.width = 1250;
+bossLvl.height = 750;
 
 
 function bossLevel(){
-    heroChar.score = 0;
-    villianChar.score = 0;
+    heroChar.score = 3;
+    villianChar.score = 3;
 
-    if(thegame.style.display === 'block'){
-        thegame.style.display = 'none'
+    if(bossLoading.style.display === 'block'){
+        bossLoading.style.display = 'none'
         bossLvl.style.display = 'block'
     } 
     togglePause();
     handlePauseBoss();
+    bossLoadingSound.pause();
+    bossBattleMusic.load();
+    bossBattleMusic.play();
 }
 
 // context.fillStyle = "black";
@@ -814,7 +1239,7 @@ class Hero{
     this.y = bossLvl.height/2 -100/2;
     this.width = 80;
     this.height = 80;
-    this.score = 0;
+    this.score = 3;
 
     this.spriteWidth = 575;
     this.spriteHeight = 520;
@@ -868,7 +1293,7 @@ class Villian {
     this.y = bossLvl.height/2 -100/2;
     this.width = 440;
     this.height = 340;
-    this.score = 0;
+    this.score = 3;
 
     this.spriteWidth = 545;
     this.spriteHeight = 700;
@@ -926,11 +1351,14 @@ function drawNet(){
     }
 }
 
+const spellFire = new Image();
+spellFire.src = './src/spellBall2.gif'
+
 class Spell{
     constructor(){
         this.x = bossLvl.width/2,
         this.y = bossLvl.height/2,
-        this.radius = 15;
+        this.radius = 30;
         this.speed = 5;
         this.velocityX = 5;
         this.velocityY = 5;
@@ -938,11 +1366,13 @@ class Spell{
 
 
     draw(){
-        context.fillStyle = "white";
-        context.beginPath();
-        context.arc(this.x,this.y,this.radius,0,Math.PI * 2,false);
-        context.closePath();
-        context.fill();
+        // context.fillStyle = "white";
+        // context.beginPath();
+        // context.arc(this.x,this.y,this.radius,0,Math.PI * 2,false);
+        // context.closePath();
+        // context.fill();
+
+        context.drawImage(spellFire, this.x - 30, this.y - 30, this.radius * 2,this.radius * 2)
     }
 
 }
@@ -978,7 +1408,7 @@ function update(){
         spellBall.y += spellBall.velocityY;
 
         //ai char
-        let villLvl = 0.5;
+        let villLvl = 0.03;
         villianChar.y += (spellBall.y - (villianChar.y + villianChar.height/2)) * villLvl;
         
         if(spellBall.y + spellBall.radius > bossLvl.height || spellBall.y - spellBall.radius < 0){
@@ -1005,38 +1435,50 @@ function update(){
             spellBall.velocityY =             spellBall.speed * Math.sin(angleRad);
             
             // each time the ball hits the speed goes up
-            spellBall.speed += 2
+            spellBall.speed += 0.5
         }
 
         // score update
         if(spellBall.x + spellBall.radius > bossLvl.width){
-            heroChar.score++
-
-            if(heroChar.score == 1){
-                herovoice1.play()
-            }
-
+            heroChar.score--
             if(heroChar.score == 2){
+                herovoice1.play()
+            } else if(heroChar.score == 1){
                 herovoice2.play();
-            }
+            } 
+            // else if(heroChar.score == 0){
+            //     herovoice3.play();
+            //     resetSpellBall();
+            // } 
 
-            if(heroChar.score == 3){
+            if(heroChar.score == 0){
                 herovoice3.play();
-                alert('YOU WIN');
+                alert("You Win");
+                if(bossLvl.style.display === 'block'){
+                    bossLvl.style.display = 'none'
+                    splash.style.display = 'block'
+                    bossBattleMusic.pause();
+                    points = 0;
+                    heroChar.score = 3;
+                    villianChar.score = 3;
+                    life = 3;
+                    pickedStory = false;
+                    handlePauseBoss();
+                    bossBattleMusic.pause();
+                } 
             } else {
             resetSpellBall();
             }
         } else if(spellBall.x - spellBall.radius < 0){
-            if(villianChar.score == 0){
+            villianChar.score--
+            if(villianChar.score == 2){
                 villianVoice1.play()
             } else if(villianChar.score == 1){
                 villianVoice2.play()
-            } else if(villianChar.score == 2){
+            } 
+    
+             if(villianChar.score == 0){
                 villianVoice3.play()
-            }
-
-            villianChar.score++
-             if(villianChar.score == 3){
                 let thegame = document.getElementById('myCanvas');
                 alert('YOU LOSE');
 
@@ -1119,30 +1561,23 @@ function moveHero(event){
     heroChar.y = event.clientY - rect.top - heroChar.height/2;
 }
 
-// const bossbck2 = new Image();
-// bossbck2.src ='./src/bossback2.jpg'
-
-// class BossBck{
-//     constructor() {
-        
-//     }
-
-//     draw(){
-//         //  context.drawImage(mainBoss, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 0, this.y - 5, this.spriteWidth/2, this.spriteHeight/2)
-//         context.drawImage(bossbck2,0,0,)
-//     }
-// }
-
-// const hellbck = new BossBck();
 let bframes = 0;
+
+let gameOverImg = new Image();
+gameOverImg.src = './src/gameover.png'
+
+function handleGameOver(){
+    ctx.drawImage(gameOverImg,110,200)
+}
 
 function render(){
     context.clearRect(0,0,canvas.width,canvas.height)
     update();
     // hellbck.draw();
     // drawNet();
-    drawtext(heroChar.score,bossLvl.width/4,bossLvl.height/5,"white");
-    drawtext(villianChar.score,3 * bossLvl.width/4,bossLvl.height/5,"white")
+    // drawtext(heroChar.score,bossLvl.width/4,bossLvl.height/5,"white");
+    // drawtext(villianChar.score,3 * bossLvl.width/4,bossLvl.height/5,"white")
+    bossLvlLifes.draw();
     heroChar.update();
     heroChar.draw();
     villianChar.update();
@@ -1163,25 +1598,36 @@ function animation(){
     printBombs();
     printMonster();
     printflyMonster();
+    printExtraLife();
+    printShield();
+    printFreeze();
     player.update();
     player.draw();
     lifearea.draw();
     // lifearea.update();
     ctx.fillStyle = 'White';
-    ctx.fillText('Gems: ' + points, 10, 50);
-    ctx.fillText("Lifes: " + life,1100,50)
-    if(points == 50 && pickedStory == true){
+    if(pickedStory == false){
+        ctx.fillText('Toast: ' + points, 10, 50);
+    }
+    if(pickedStory == true){
+        ctx.fillText("Toast: " + points + "/80",10,50)
+    }
+    if(points == 1 && pickedStory == true){
         if(pausedBossLvl == true){
             pausedBossLvl = false
         }
+        togglePause();
         mainMusic.pause()
-        spellBall.speed = 5
-        bossLevel()
-        bossBattleMusic.load(); 
-        // bossBattleMusic.loop();
-        bossBattleMusic.play();
+        spellBall.speed = 5;
+        bossLoadingSound.load();
+        bossLoadingSound.play();
+        bossLoadingScreen();
     }
-    gframes++;
+    if(frozen == true){
+
+    } else {
+        gframes++
+    }
     if(isRunning){
     requestAnimationFrame(animation);
     }
