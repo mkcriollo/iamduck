@@ -26,9 +26,10 @@ let storyScene4 = document.getElementById('story4')
 let storyScene5 = document.getElementById('story5')
 let storyScene6 = document.getElementById('loading')
 let gameLoading = document.getElementById('loading-game-screen')
+let gameLoading2 = document.getElementById('loading-game-screen2')
 let bossLoading = document.getElementById('loading-boss-screen')
 
-function changeStory0(){
+function changeStory0() {
      if(storyScene0.style.display === 'block'){
             storyScene0.style.display = 'none'
             storyScene1.style.display = 'block'
@@ -72,10 +73,16 @@ function changeStory6(){
         } 
 }
 function changeLoading(){
-    let thegame = document.getElementById('myCanvas');
-
      if(gameLoading.style.display === 'block'){
             gameLoading.style.display = 'none'
+            gameLoading2.style.display = 'block'
+        } 
+}
+function changeLoading2(){
+    let thegame = document.getElementById('myCanvas');
+
+     if(gameLoading2.style.display === 'block'){
+            gameLoading2.style.display = 'none'
             thegame.style.display = 'block'
             canvasPos = canvas.getBoundingClientRect();
         } 
@@ -150,6 +157,13 @@ storyLoadingSound.volume = 0.7;
 let extraLifeSound = new Audio();
 extraLifeSound.src = './src/17.mp3';
 
+let shieldSound = new Audio();
+shieldSound.src = './src/duckleft/Energy Shield Activation Sound Effect.mp3';
+
+let clearSound = new Audio();
+clearSound.src = './src/duckleft/BEGONE THOT God voice Sound effect (mp3cut.net).mp3'
+clearSound.volume = 0.3;
+
 let taunt = new Audio();
 taunt.src = './src/Meatshield/Archer_Taunt_001.wav'
 taunt.volume = 1;
@@ -183,6 +197,13 @@ villianVoice3.volume = 1;
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
+
+// let windowWidth = window.innerWidth
+// let windowHeight = window.innerHeight
+
+// let widthh = windowWidth / 1.16
+// let heightt = widthh * .60
+
 canvas.width = 1250;
 canvas.height = 750;
 // canvas.width = widthpixels;
@@ -197,6 +218,7 @@ let flyspeed = 700;
 let bombspeed = 150;
 let shield = false;
 let frozen = false;
+let clear = false;
 ctx.font = "50px Georgia" 
 
 
@@ -380,6 +402,7 @@ function printShield(){
             i--;
         }  
         if (shieldOne.distance < shieldOne.radius + player.radius){
+            shieldSound.play();
             shield = true;
             setTimeout(function(){
                 shield = false
@@ -471,6 +494,93 @@ function printFreeze(){
                 frozen = false
             },6000)
             freezeArr.splice(i,1);
+            i--;
+        }
+    }
+
+}
+//Clear Everything Powerup
+
+const clearImg = new Image();
+clearImg.src = './src/clearSprite.png'
+
+const clearArr = [];
+
+class Clear {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 100;
+        this.radius = 45;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteHeight = 545;
+        this.spriteWidth = 550;
+        this.frames = 0;
+        this.speed = 5;
+        this.distance;
+    }
+
+    update(){
+        this.y -= this.speed
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        this.distance = Math.sqrt(dx * dx + dy * dy);
+
+        if(gframes % 10 === 0){
+            this.frames++
+            if(this.frames >= 6){
+                this.frames = 0;
+            }
+            if(this.frames == 2 || this.frames == 5){
+                this.frameX = 0;
+            } else {
+                this.frameX++;
+            }
+            if(this.frames < 2){
+                this.frameY = 0;
+            }
+            if(this.frames < 5){
+                this.frameY = 1;
+            } else {
+                this.frameY = 0;
+            }
+        }
+    
+    }
+
+    draw(){
+        // ctx.fillStyle = 'black'
+        // ctx.beginPath();
+        // ctx.arc(this.x,this.y,this.radius, 0, Math.PI * 2)
+        // ctx.fill();
+        // ctx.closePath();
+        // ctx.stroke();
+
+        ctx.drawImage(clearImg, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 45, this.y - 45, this.spriteWidth/6, this.spriteHeight/6)
+        // ctx.drawImage(clearImg,this.x - 50, this.y - 50, this.radius * 2, this.radius * 2)
+    }
+}
+
+function printClear(){
+    if(gframes % 6000 == 0 && gframes != 0){
+       clearArr.push(new Clear());
+    }
+
+    for (let i = 0; i < clearArr.length; i++) {
+         let clearOne = clearArr[i]
+         clearOne.update();
+         clearOne.draw();
+        if(clearOne.y < 0){
+            clearArr.splice(i, 1)
+            i--;
+        }  
+        if (clearOne.distance < clearOne.radius + player.radius){
+            clearSound.play();
+            clear = true;
+            setTimeout(function(){
+                clear = false;
+            },300)
+            clearArr.splice(i,1);
             i--;
         }
     }
@@ -710,7 +820,7 @@ class ExtraLife {
 }
 
 function printExtraLife(){
-    if(gframes % 5000 === 0 && gframes != 0){
+    if(gframes % 3500 == 0 && gframes != 0){
         extraLifeArr.push(new ExtraLife());
         (extraLifeArr)
     }
@@ -851,6 +961,9 @@ function printBombs(){
 
     for (let i = 0; i < bombArray.length; i++) {
          let oneBomb = bombArray[i]
+         if(clear == true){
+            bombArray.splice(0,bombArray.length)
+         }
          oneBomb.update();
          oneBomb.draw();
         if(oneBomb.y < 0){
@@ -982,6 +1095,9 @@ function printMonster(){
 
     for (let i = 0; i < monsterArray.length; i++) {
          let oneMonster = monsterArray[i]
+         if(clear == true){
+             monsterArray.splice(0,monsterArray.length)
+         }
          oneMonster.update();
          oneMonster.draw();
         if(oneMonster.y < 0){
@@ -1099,9 +1215,9 @@ function printflyMonster(){
             flyspeed = 200
             break
         case 40:
-            speed = 170
+            flyspeed = 180
         case 50:
-            speed = 150
+            flyspeed = 170
         default:
             flyspeed = flyspeed
     }
@@ -1119,6 +1235,9 @@ function printflyMonster(){
 
     for (let i = 0; i < monster2Array.length; i++) {
          let flyingMonster = monster2Array[i]
+         if(clear == true){
+             monster2Array.splice(0,monster2Array.length)
+         }
          flyingMonster.update();
          flyingMonster.draw();
         if(flyingMonster.y < 0){
@@ -1459,9 +1578,16 @@ function update(){
                     splash.style.display = 'block'
                     bossBattleMusic.pause();
                     points = 0;
+                    speed = 500;
+                    flyspeed = 700;
+                    bombspeed = 150;
                     heroChar.score = 3;
                     villianChar.score = 3;
                     life = 3;
+                    clear = true;
+                    setTimeout(function(){
+                        clear = false;
+                    },300)
                     pickedStory = false;
                     handlePauseBoss();
                     bossBattleMusic.pause();
@@ -1487,7 +1613,15 @@ function update(){
                     thegame.style.display = 'block'
                     bossBattleMusic.pause();
                     canvasPos = canvas.getBoundingClientRect();
+                    life = 3;
                     points = 0;
+                    speed = 500;
+                    flyspeed = 700;
+                    bombspeed = 150;
+                    clear = true;
+                    setTimeout(function(){
+                        clear = false;
+                    },300)
                 } 
                 mainMusic.load();
                 mainMusic.play();
@@ -1599,6 +1733,7 @@ function animation(){
     printMonster();
     printflyMonster();
     printExtraLife();
+    printClear();
     printShield();
     printFreeze();
     player.update();

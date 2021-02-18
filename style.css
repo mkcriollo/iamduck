@@ -28,6 +28,8 @@ height: 800px; */
 #splashScreen {
     /* width: 80%;
     height: 100%; */
+    /* width:71vw;
+    height:50vw; */
     width: 1250px;
     height: 750px;
     border: 4px solid black;
@@ -35,13 +37,16 @@ height: 800px; */
     background-size: 100% 100%;
     background-repeat: none;
     cursor: pointer;
-    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; 
+    /* position: relative; */
 }
 
 
 #StartButton {
-    position: absolute;
-    margin-left: 53%;
+    /* position: absolute; */
+    /* margin-left: 53%; */
     margin-top: 53%;
     width: 430px;
     height: 80px;
@@ -53,6 +58,7 @@ height: 800px; */
     font-weight: 900;
     -webkit-text-stroke: 1px #000000;
     border: none;
+    float: left;
     color: #fff;
     outline: none;
 }
@@ -63,8 +69,8 @@ height: 800px; */
 }
 
 #startStoryBtn{
-    position: absolute;
-    margin-left: 13%;
+    /* position: absolute; */
+    /* margin-left: 13%; */
     margin-top: 53%;
     width: 430px;
     height: 80px;
@@ -77,6 +83,7 @@ height: 800px; */
     -webkit-text-stroke: 1px #000000;
     border: none;
     color: #fff;
+    float: right;
     outline: none;
 }
 
@@ -247,11 +254,20 @@ height: 800px; */
     background-repeat: none;
 }
 
+#loading-game-screen2{
+    width: 1250px;
+    height: 750px;  
+    border: 4px solid black;
+    background: url(./src/final_602d9d714f935d00694f094d_288040.gif);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
 #loading-boss-screen{
     width: 1250px;
     height: 750px;  
     border: 4px solid black;
-    background: url(./src/bossload.gif);
+    background: url(./src/newbossloading.gif);
     /* background-color: black; */
     background-size: 100% 100%;
     background-repeat: none;
@@ -267,7 +283,59 @@ height: 800px; */
     background-repeat: none;
 }
 
-.links{
-    display: flex;
-    flex-wrap: wrap;
+.all-links{
+    height: 245px;
+    width: 100px;
+    /* border-left: 1px solid rgba(255, 255, 255, 0.44);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.44);
+    background: rgba(0, 0, 0, 0.687); */
+    background: transparent;
+    float: right;
+}
+
+.all-links:hover{
+    border-left: 1px solid rgba(255, 255, 255, 0.44);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.44);
+    background: rgba(0, 0, 0, 0.687);
+}
+
+.link1{
+    margin-top: 10%;
+    margin-left: 15%;
+    width: 60px;
+    height: 60px;
+    background: url(./src/linkendof.gif);
+    /* background-color: black; */
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+.link2{
+    margin-top: 20%;
+    margin-left: 10%;
+    width: 75px;
+    height: 65px;
+    background: url(./src/githubbbb.png);
+    /* background-color: black; */
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+.link3{
+    margin-top: 20%;
+    margin-left: 15%;
+    width: 60px;
+    height: 60px;
+     background: url(./src/developer.png);
+    /* background-color: black; */
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+.link1:hover {
+cursor: pointer; 
+}
+.link2:hover {
+cursor: pointer; 
+}
+.link3:hover {
+cursor: pointer; 
 }
