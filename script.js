@@ -204,8 +204,8 @@ const ctx = canvas.getContext('2d');
 // let widthh = windowWidth / 1.16
 // let heightt = widthh * .60
 
-canvas.width = 1250;
-canvas.height = 750;
+canvas.width = 1180;
+canvas.height = 680;
 // canvas.width = widthpixels;
 // canvas.height = heightpixels;
 let pickedStory = false;
@@ -316,9 +316,9 @@ class Player{
             ctx.translate(this.x,this.y);
             ctx.rotate(this.angle);
             if(this.x >= mouse.x){
-                ctx.drawImage(duckLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 60, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+                ctx.drawImage(duckLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 50, 0 - 60, this.spriteWidth/2.3, this.spriteHeight/2.3)
             } else {
-                ctx.drawImage(duckRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 70, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+                ctx.drawImage(duckRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 50, 0 - 50, this.spriteWidth/2.3, this.spriteHeight/2.3)
             }
             ctx.restore()
             for (let i = 0; i < this.projectiles.length; i++) {
@@ -329,9 +329,9 @@ class Player{
             ctx.translate(this.x,this.y);
             ctx.rotate(this.angle);
             if(this.x >= mouse.x){
-                ctx.drawImage(shieldLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 60, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+                ctx.drawImage(shieldLeft, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 50, 0 - 60, this.spriteWidth/2.3, this.spriteHeight/2.3)
             } else {
-                ctx.drawImage(shieldRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 70, 0 - 70, this.spriteWidth/1.9, this.spriteHeight/1.9)
+                ctx.drawImage(shieldRight, 0, 0,this.spriteHeight, this.spriteWidth, 0 - 50, 0 - 50, this.spriteWidth/2.3, this.spriteHeight/2.3)
             }
             ctx.restore()
             for (let i = 0; i < this.projectiles.length; i++) {
@@ -388,7 +388,7 @@ class Shield {
 }
 
 function printShield(){
-    if(gframes % 3000 === 0 && gframes != 0){
+    if(gframes % 3000 === 0 && gframes !== 0){
         shieldArr.push(new Shield());
         (shieldArr)
     }
@@ -425,7 +425,7 @@ class Freeze {
     constructor(){
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 100;
-        this.radius = 50;
+        this.radius = 45;
         this.frameX = 0;
         this.frameY = 0;
         this.spriteHeight = 485;
@@ -471,7 +471,7 @@ class Freeze {
         // ctx.closePath();
         // ctx.stroke();
 
-        ctx.drawImage(freezeImg,this.x - 50, this.y - 50, this.radius * 2, this.radius * 2)
+        ctx.drawImage(freezeImg,this.x - 37, this.y - 37, this.radius * 1.7, this.radius * 1.7)
     }
 }
 
@@ -579,7 +579,7 @@ function printClear(){
             clear = true;
             setTimeout(function(){
                 clear = false;
-            },300)
+            },400)
             clearArr.splice(i,1);
             i--;
         }
@@ -619,15 +619,15 @@ class bossLvlLife {
     draw(){  
         // hero battle life
         if(heroChar.score == 3){
-            context.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x + 200, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
+            context.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x + 150, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
         }
 
         if(heroChar.score == 2){
-            context.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x + 200, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
+            context.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x + 150, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
         }
 
         if(heroChar.score == 1){
-            context.drawImage(oneHeart, this.x + 200, this.y - 50, this.radius,this.radius)
+            context.drawImage(oneHeart, this.x + 150, this.y - 50, this.radius,this.radius)
         }
 
         // villian boss life
@@ -663,15 +663,15 @@ class Life {
 
     draw(){  
         if(life == 3){
-            ctx.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x + 200, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
+            ctx.drawImage(threeHeart, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x + 150, this.y - 50, this.spriteWidth/6, this.spriteHeight/6)
         }
 
         if(life == 2){
-            ctx.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x + 200, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
+            ctx.drawImage(twoHeart, this.frameX * this.spriteWidth2, this.frameY * this.spriteHeight2,this.spriteWidth2,this.spriteHeight2,this.x + 150, this.y - 50, this.spriteWidth2/8, this.spriteHeight2/8)
         }
 
         if(life == 1){
-            ctx.drawImage(oneHeart, this.x + 200, this.y - 50, this.radius,this.radius)
+            ctx.drawImage(oneHeart, this.x + 150, this.y - 50, this.radius,this.radius)
         }
     }
 }
@@ -1314,10 +1314,10 @@ class FireBall {
 
 const bossLvl = document.getElementById('Bosslevel');
 const context = bossLvl.getContext('2d');
-const paddleWidth = 90;
-const paddleHeight = 15;
-bossLvl.width = 1250;
-bossLvl.height = 750;
+const paddleWidth = 88;
+const paddleHeight = 13;
+bossLvl.width = 1180;
+bossLvl.height = 680;
 
 
 function bossLevel(){
@@ -1705,7 +1705,7 @@ function handleGameOver(){
 }
 
 function render(){
-    context.clearRect(0,0,canvas.width,canvas.height)
+    context.clearRect(0,0,bossLvl.width,bossLvl.height)
     update();
     // hellbck.draw();
     // drawNet();
@@ -1747,7 +1747,7 @@ function animation(){
     if(pickedStory == true){
         ctx.fillText("Toast: " + points + "/80",10,50)
     }
-    if(points == 80 && pickedStory == true){
+    if(points == 1 && pickedStory == true){
         if(pausedBossLvl == true){
             pausedBossLvl = false
         }
