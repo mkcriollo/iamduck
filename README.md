@@ -16,7 +16,7 @@ The longer the user survives the quicker the obstacle will appear making it an r
 
 Collect x amount of toast spirtes in order to face the reaper of hell. To win the boss level the player will have to bounce a soul back and fourth avoiding that the boss doesnt score on the player (not reflecting the soul back). If the player fails to reflect the soul 3 times the game will be over and the player will have the option of starting again from collecting toast spirtes or going back to the Home Page.
 
-![altText](https://media.giphy.com/media/3xvNxkQLsTqeVZpIzI/giphy.gif)    ![altText](https://media.giphy.com/media/3xvNxkQLsTqeVZpIzI/giphy.gif)
+![altText](https://media.giphy.com/media/eRHh6UnyBExob2S8nI/giphy.gif)    
 
 ## Functionality
 
