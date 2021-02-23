@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
+    <link rel="shortcut icon" href="./src/rubber_duck_PNG14.ico" type="image/x-icon">
     <title>iamDuck</title>
 </head>
 <body id="body">
     
-        <!-- <img src="./src/Screen Shot 2021-02-08 at 10.06.00 AM.png" alt="iamducklogo" class="logo">
-        <br> -->
-
         <div id="splashScreen" style="display: block;">
+            <p class="name">DEVELOPED BY MIKE CRIOLLO</p>
             <input type="button" id="StartButton" value="Survival" onclick="survivalInstructions()">
-            <!-- <input type="button" id="startStoryBtn" value="Story Mode" onclick="startStoryMode()"> -->
             <div class="all-links">
                 <a href="https://www.linkedin.com/in/mike-criollo-b38377206/">
                     <div class="link1"></div>
@@ -25,7 +24,7 @@
                 <a href="https://github.com/mkcriollo">
                     <div class="link2"></div>
                 </a>
-                <a href="">
+                <a href="https://angel.co/u/mike-criollo">
                     <div class="link3"></div>
                 </a>
             </div>
@@ -79,9 +78,28 @@
             <button onclick="bossLevel()" class="nextBtn" value="Next"></button>
         </div>
 
+        <!-- The game -->
+
         <canvas id="myCanvas" style="display: none;"></canvas>
         <canvas id="Bosslevel" style="display: none;"></canvas>
-   
+
+        <!-- win or lost -->
+
+        <div id="normal-lost" style="display: none;">
+            <div class="yesandno">
+                <button onclick="playAgainYes()" class="playAgainYes">Yes</button>
+                <button onclick="playAgainNo()" class="playAgainNo">No</button>
+            </div>
+        </div>
+        
+        <div id="winning-page" style="display: none;"></div>
+
+        <div id="losing-page" style="display: none;">
+            <div class="replay-game-lose">
+                <button class="playAgainYes" onclick="playAgainYes()">Yes</button>
+                <button class="playAgainNo" onclick="playAgainNo()">No</button>
+            </div>
+        </div>
 
     <script type="text/javascript" src="script.js"></script>
 

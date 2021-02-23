@@ -21,15 +21,7 @@ body {
 
 /*splash Screen */
 
-/* width: 1300px;
-height: 800px; */
-
-
 #splashScreen {
-    /* width: 80%;
-    height: 100%; */
-    /* width:71vw;
-    height:50vw; */
     width: 1180px;
     height: 680px;
     border: 4px solid black;
@@ -40,17 +32,13 @@ height: 800px; */
     display: flex;
     justify-content: space-around;
     align-items: flex-end; 
-    /* position: relative; */
 }
 
 
 #StartButton {
-    /* position: absolute; */
-    /* margin-left: 53%; */
     margin-top: 50%;
     width: 430px;
     height: 80px;
-    /* background: rgba(34, 34, 34, 0.618); */
     background: transparent;
     font-size: 30px;
     letter-spacing: 5px;
@@ -69,12 +57,9 @@ height: 800px; */
 }
 
 #startStoryBtn{
-    /* position: absolute; */
-    /* margin-left: 13%; */
     margin-top: 50%;
     width: 430px;
     height: 80px;
-    /* background: rgba(34, 34, 34, 0.618); */
     background: transparent;
     font-size: 30px;
     letter-spacing: 5px;
@@ -92,14 +77,16 @@ height: 800px; */
     cursor: pointer;
 }
 
+.name {
+    color: white;
+}
+
 
 /* canvas css */
 
 #myCanvas {
     width: 1180px;
     height: 680px; 
-    /* width: 80%;
-    height: 100%; */
     border: 4px solid black;
     background: url(https://i.pinimg.com/originals/54/fb/d3/54fbd3e940d1e222e5d2d55f5644c241.gif);
     background-size: 100% 100%;
@@ -116,6 +103,7 @@ height: 800px; */
     background-repeat: none;
 }
 
+/* story line */
 
 #story0 {
     width: 1180px;
@@ -201,15 +189,7 @@ height: 800px; */
     margin-left: 15%;
     border-radius: 30px;
     float: left;
-    /* text-align: center;
-    vertical-align: middle; */
-    /* line-height: 200px; 
-    font-size: 24px; 
-    color: #fff; */
     overflow: hidden;
-    /* background: url(./src/dlf.pt-pokemon-text-box-png-5223099.png);
-    background-size: 100% 100%; */
-    /* background-color: rgba(38, 37, 37, 0.591); */
     background: url('./src/textb.png');
     background-size: 100% 100%;
     background-repeat: none;
@@ -225,12 +205,10 @@ height: 800px; */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   margin-left: 8%;
   margin-top: 8%;
-  /* letter-spacing: .07em; */
   font-size: 16px;
   color: #333;
   animation: typing 3.5s steps(40, end),blink-caret .75s step-end infinite;
   font-family: 'Press Start 2P', cursive;
-  /* -webkit-text-stroke: 2px #000000; */
 }
 
 .nextBtn {
@@ -270,7 +248,6 @@ height: 800px; */
     height: 680px;  
     border: 4px solid black;
     background: url(./src/newbossloading.gif);
-    /* background-color: black; */
     background-size: 100% 100%;
     background-repeat: none;
 }
@@ -280,17 +257,88 @@ height: 800px; */
     height: 680px;  
     border: 4px solid black;
     background: url(./src/IMG_1388.GIF);
-    /* background-color: black; */
     background-size: 100% 100%;
     background-repeat: none;
 }
 
+/* win or lose */
+
+#normal-lost {
+    width: 1180px;
+    height: 680px;  
+    border: 4px solid black;
+    background: url(./src/normallost.gif);
+    background-size: 100% 100%;
+    background-repeat: none;
+    text-align: center;
+}
+
+#losing-page {
+    width: 1180px;
+    height: 680px;  
+    border: 4px solid black;
+    background: url(./src/lose.GIF);
+    /* background-color: black; */
+    background-size: 100% 100%;
+    background-repeat: none;
+    text-align: center;
+}
+
+#winning-page{
+    width: 1180px;
+    height: 680px;  
+    border: 4px solid black;
+    background: url(./src/gameover.GIF);
+    background-size: 100% 100%;
+    background-repeat: none;
+}
+
+.yesandno {
+    margin-top: 50%;
+}
+
+.yesandno > button {
+    font-family: 'New Rocker', cursive;
+    color: white;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    height: 60px;
+    width: 90px;
+    font-size: 45px;
+}
+
+.replay-game-lose {
+    margin-left: 48%;
+    margin-top: 25%;
+}
+
+.replay-game-lose > button {
+    font-family: 'New Rocker', cursive;
+    color: white;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    height: 60px;
+    width: 90px;
+    font-size: 35px;
+}
+
+.playAgainYes:hover {
+    color: green;
+}
+
+.playAgainNo:hover{
+    color: red;
+}
+
+/* links to developer paage */
+
 .all-links{
     height: 245px;
     width: 100px;
-    /* border-left: 1px solid rgba(255, 255, 255, 0.44);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.44);
-    background: rgba(0, 0, 0, 0.687); */
     background: transparent;
     float: right;
 }
@@ -298,16 +346,15 @@ height: 800px; */
 .all-links:hover{
     border-left: 1px solid rgba(255, 255, 255, 0.44);
     border-bottom: 1px solid rgba(255, 255, 255, 0.44);
+    border-top: 1px solid rgba(255, 255, 255, 0.44);
     background: rgba(0, 0, 0, 0.687);
 }
 
 .link1{
-    margin-top: 10%;
     margin-left: 15%;
     width: 60px;
     height: 60px;
     background: url(./src/linkendof.gif);
-    /* background-color: black; */
     background-size: 100% 100%;
     background-repeat: none;
 }
@@ -317,7 +364,6 @@ height: 800px; */
     width: 75px;
     height: 65px;
     background: url(./src/githubbbb.png);
-    /* background-color: black; */
     background-size: 100% 100%;
     background-repeat: none;
 }
@@ -326,8 +372,7 @@ height: 800px; */
     margin-left: 15%;
     width: 60px;
     height: 60px;
-     background: url(./src/developer.png);
-    /* background-color: black; */
+    background: url(./src/angellist.png);
     background-size: 100% 100%;
     background-repeat: none;
 }

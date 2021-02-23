@@ -89,28 +89,25 @@ function changeLoading2(){
     storyLoadingSound.pause();
     pickedStory = true;
     togglePause();
+    clear = true;
+    setTimeout(function(){
+        clear = false;
+    },300)
     mainMusic.load();
     mainMusic.play();
 }
 function bossLoadingScreen(){
-    bossLoadingSound.load();
-    bossLoadingSound.play();
      if(thegame.style.display === 'block'){
             thegame.style.display = 'none'
             bossLoading.style.display = 'block'
-        }   
+    }
+    bossLoadingSound.load();
+    bossLoadingSound.play();  
 }
-
-// function changeBossLoading(){
-//      if(bossLoading.style.display === 'block'){
-//             bossLoading.style.display = 'none'
-//             bossLvl.style.display = 'block'
-//         }  
-//     bossLevel();
-// }
 
 
 // start survival
+
 let splash = document.getElementById('splashScreen');
 let thegame = document.getElementById('myCanvas');
 let survivalInfo = document.getElementById('loading-game-screen-survival')
@@ -131,6 +128,94 @@ function startSurvivalMode(){
         } 
         togglePause();
         mainMusic.play();
+        clear = true;
+        setTimeout(function(){
+        clear = false;
+        },100)
+}
+
+// losing or winning 
+
+let losingPage = document.getElementById('losing-page')
+let winningPage = document.getElementById('winning-page')
+let normalLost = document.getElementById('normal-lost')
+
+function losefirstGame(){
+    if(thegame.style.display == 'block'){
+        thegame.style.display = "none";
+        normalLost.style.display = 'block';
+    }
+}
+
+function loseGame(){
+    handlePauseBoss();
+    bossBattleMusic.pause();
+
+    if(bossLvl.style.display == 'block'){
+        bossLvl.style.display = "none";
+        losingPage.style.display = 'block';
+    }
+}
+
+function playAgainYes(){
+    let thegame = document.getElementById('myCanvas');
+
+    if(losingPage.style.display == 'block'){
+        losingPage.style.display = 'none'
+        thegame.style.display = 'block'
+    } else if(winningPage.style.display == 'block'){
+        winningPage.style.display = 'none'
+        thegame.style.display = 'block'
+    } else if(normalLost.style.display == 'block'){
+        normalLost.style.display = 'none'
+        thegame.style.display = 'block'
+    }
+
+    canvasPos = canvas.getBoundingClientRect();
+    life = 3;
+    points = 0;
+    speed = 500;
+    flyspeed = 700;
+    bombspeed = 150;
+    gframes = 0;
+    heroChar.score = 3;
+    villianChar.score = 3;
+    clear = true;
+    setTimeout(function(){
+        clear = false;
+    },300)
+    mainMusic.load();
+    mainMusic.play();
+    // handlePauseBoss();
+    // bossBattleMusic.pause();
+    togglePause();
+}
+
+function playAgainNo(){
+    if(losingPage.style.display == 'block'){
+        losingPage.style.display = 'none'
+        splash.style.display = 'block'
+    } else if(winningPage.style.display == 'block'){
+        winningPage.style.display = 'none'
+        splash.style.display = 'block'
+    } else if(normalLost.style.display == 'block'){
+        normalLost.style.display = 'none'
+        splash.style.display = 'block'
+    }
+
+    points = 0;
+    speed = 500;
+    flyspeed = 700;
+    bombspeed = 150;
+    gframes = 0;
+    heroChar.score = 3;
+    villianChar.score = 3;
+    life = 3;
+    clear = true;
+    setTimeout(function(){
+        clear = false;
+    },300)
+    pickedStory = false;
 }
 
 // sound 
@@ -192,23 +277,27 @@ villianVoice2.volume = 1;
 let villianVoice3 = new Audio();
 villianVoice3.src = "./src/bossvoice/demon-go (mp3cut.net).mp3"
 villianVoice3.volume = 1;
+
+const eatBread = document.createElement('audio')
+eatBread.src = './src/eatbread.mp3';
+
+const bombSound = document.createElement('audio')
+bombSound.src = './src/8bit_bomb_explosion.wav';
+
 // canvas
 
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
-// let windowWidth = window.innerWidth
-// let windowHeight = window.innerHeight
 
-// let widthh = windowWidth / 1.16
-// let heightt = widthh * .60
 
 canvas.width = 1180;
 canvas.height = 680;
-// canvas.width = widthpixels;
-// canvas.height = heightpixels;
+
 let pickedStory = false;
+
+// basic start of the game
 
 let points = 0;
 let gframes = 0;
@@ -223,6 +312,7 @@ ctx.font = "50px Georgia"
 
 
 // mouse interaction 
+
 let canvasPos = canvas.getBoundingClientRect();
 console.log(canvasPos)
 const mouse = {
@@ -235,7 +325,6 @@ canvas.addEventListener('mousedown', function(event){
     mouse.click = true;
     mouse.x = event.x - canvasPos.left;
     mouse.y = event.y - canvasPos.top;
-    // console.log(mouse.x, mouse.y);
 })
 
 canvas.addEventListener('mouseup', function(){
@@ -376,6 +465,8 @@ class Shield {
     }
 
     draw(){
+        // code below helps set the sprite on the circle that will be use for collision detection 
+
         // ctx.fillStyle = 'white'
         // ctx.beginPath();
         // ctx.arc(this.x,this.y,this.radius, 0, Math.PI * 2)
@@ -499,6 +590,7 @@ function printFreeze(){
     }
 
 }
+
 //Clear Everything Powerup
 
 const clearImg = new Image();
@@ -557,7 +649,6 @@ class Clear {
         // ctx.stroke();
 
         ctx.drawImage(clearImg, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 45, this.y - 45, this.spriteWidth/6, this.spriteHeight/6)
-        // ctx.drawImage(clearImg,this.x - 50, this.y - 50, this.radius * 2, this.radius * 2)
     }
 }
 
@@ -588,6 +679,7 @@ function printClear(){
 }
 
 // Lifes 
+
 const threeHeart = new Image();
 threeHeart.src = './src/3hearts.png'
 const twoHeart = new Image();
@@ -680,11 +772,11 @@ const lifearea = new Life()
 
 
 
-//gems
-const redGem = new Image();
-redGem.src = './src/spooktoast.png';
+// Toast Spirtes 
+const toastImg = new Image();
+toastImg.src = './src/spooktoast.png';
 
-const gemsArray = [];
+const toastArray = [];
 
 class Gem {
     constructor(){
@@ -715,41 +807,37 @@ class Gem {
         // ctx.closePath();
         // ctx.stroke();
 
-        ctx.drawImage(redGem, this.x - 37, this.y - 40, this.radius * 2.5,this.radius * 2.5)
+        ctx.drawImage(toastImg, this.x - 37, this.y - 40, this.radius * 2.5,this.radius * 2.5)
     }
 }
 
-const eatBread = document.createElement('audio')
-eatBread.src = './src/eatbread.mp3';
 
-
-
-function printGems(){
+function printToast(){
     if(gframes % 50 === 0){
         if(frozen == true){
 
         } else {
-        gemsArray.push(new Gem());
-        (gemsArray)
+        toastArray.push(new Gem());
+        (toastArray)
         }
     }
 
-    for (let i = 0; i < gemsArray.length; i++) {
-         let oneGem = gemsArray[i]
-         oneGem.update();
-         oneGem.draw();
-        if(oneGem.y < 0){
-            gemsArray.splice(i, 1)
+    for (let i = 0; i < toastArray.length; i++) {
+         let oneToast = toastArray[i]
+         oneToast.update();
+         oneToast.draw();
+        if(oneToast.y < 0){
+            toastArray.splice(i, 1)
             i--;
         }  
-        if (oneGem.distance < oneGem.radius + player.radius){
+        if (oneToast.distance < oneToast.radius + player.radius){
             if(points % 10 === 0){
                 eatBread.play()
             } else {
                 eatBread.play()
             }
             points++;
-            gemsArray.splice(i,1);
+            toastArray.splice(i,1);
             i--;
         }
     }
@@ -920,10 +1008,6 @@ class Bomb {
     }
 }
 
-const bombSound = document.createElement('audio')
-bombSound.src = './src/8bit_bomb_explosion.wav';
-
-
 
 function printBombs(){
 
@@ -984,9 +1068,9 @@ function printBombs(){
             bombArray.splice(i,1)
             i--;
             if(life === 0){
-                alert('GAME OVER');
-                document.location.reload();
-                clearInterval(interval);
+                mainMusic.pause();
+                togglePause();
+                losefirstGame();
             }
         }
     }
@@ -1118,9 +1202,9 @@ function printMonster(){
             monsterArray.splice(i,1)
             i--;
             if(life === 0){
-                alert('GAME OVER');
-                document.location.reload();
-                clearInterval(interval);
+                mainMusic.pause();
+                togglePause();
+                losefirstGame();
             }
         }
     }
@@ -1258,9 +1342,9 @@ function printflyMonster(){
             monster2Array.splice(i,1)
             i--;
             if(life === 0){
-                alert('GAME OVER');
-                document.location.reload();
-                clearInterval(interval);
+                mainMusic.pause();
+                togglePause();
+                losefirstGame();
             }
         }
     }
@@ -1321,34 +1405,19 @@ bossLvl.height = 680;
 
 
 function bossLevel(){
-    heroChar.score = 3;
-    villianChar.score = 3;
-
-    if(bossLoading.style.display === 'block'){
+    if(bossLoading.style.display == 'block'){
         bossLoading.style.display = 'none'
         bossLvl.style.display = 'block'
     } 
     togglePause();
     handlePauseBoss();
+    heroChar.score = 3;
+    villianChar.score = 3;
     bossLoadingSound.pause();
     bossBattleMusic.load();
     bossBattleMusic.play();
 }
 
-// context.fillStyle = "black";
-// context.fillRect(100,200,50,75);
-
-// context.fillStyle = "red";
-// context.beginPath();
-// context.arc(300,350,100,0,Math.Pi * 2,false);
-
-// let rectX = 0;
-
-// function render(){
-//     context.drawRect(0,0,1300,800, "wheat");
-//     context.drawRect(rectX,100,100,100, "red");
-//     rectX = rectX + 100;
-// }
 const duckyRight = new Image();
 duckyRight.src = './src/duckrightsprite.png'
 
@@ -1394,9 +1463,7 @@ class Hero{
     draw(){
         // context.fillStyle = "white";
         // context.fillRect(this.x,this.y,this.width,this.height)
-
-        //  ctx.drawImage(monster2, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 130, this.y - 120, this.spriteWidth/1, this.spriteHeight/1)
-        
+ 
         context.drawImage(duckyRight, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 30, this.y - 40, this.spriteWidth/4, this.spriteHeight/4)
     }
 }
@@ -1450,7 +1517,6 @@ class Villian {
 
                 
         context.drawImage(mainBoss, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 10, this.y - 20, this.spriteWidth/2, this.spriteHeight/2)
-        // context.drawImage(mainBoss, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth,this.spriteHeight,this.x - 0, this.y - 5, this.spriteWidth/2, this.spriteHeight/2)
     }
 }
 
@@ -1565,33 +1631,31 @@ function update(){
             } else if(heroChar.score == 1){
                 herovoice2.play();
             } 
-            // else if(heroChar.score == 0){
-            //     herovoice3.play();
-            //     resetSpellBall();
-            // } 
-
+           
             if(heroChar.score == 0){
                 herovoice3.play();
-                alert("You Win");
-                if(bossLvl.style.display === 'block'){
-                    bossLvl.style.display = 'none'
+                handlePauseBoss();
+                bossBattleMusic.pause();
+                if(bossLvl.style.display == 'block'){
+                    bossLvl.style.display = "none";
+                    winningPage.style.display = 'block';
+                }
+                setTimeout(function(){
+                    winningPage.style.display = 'none'
                     splash.style.display = 'block'
-                    bossBattleMusic.pause();
-                    points = 0;
-                    speed = 500;
-                    flyspeed = 700;
-                    bombspeed = 150;
-                    heroChar.score = 3;
-                    villianChar.score = 3;
-                    life = 3;
-                    clear = true;
-                    setTimeout(function(){
-                        clear = false;
-                    },300)
-                    pickedStory = false;
-                    handlePauseBoss();
-                    bossBattleMusic.pause();
-                } 
+                },4000)
+                points = 0;
+                speed = 500;
+                flyspeed = 700;
+                bombspeed = 150;
+                heroChar.score = 3;
+                villianChar.score = 3;
+                life = 3;
+                clear = true;
+                setTimeout(function(){
+                    clear = false;
+                },300)
+                pickedStory = false;
             } else {
             resetSpellBall();
             }
@@ -1602,30 +1666,10 @@ function update(){
             } else if(villianChar.score == 1){
                 villianVoice2.play()
             } 
-    
-             if(villianChar.score == 0){
-                villianVoice3.play()
-                let thegame = document.getElementById('myCanvas');
-                alert('YOU LOSE');
 
-                if(bossLvl.style.display === 'block'){
-                    bossLvl.style.display = 'none'
-                    thegame.style.display = 'block'
-                    bossBattleMusic.pause();
-                    canvasPos = canvas.getBoundingClientRect();
-                    life = 3;
-                    points = 0;
-                    speed = 500;
-                    flyspeed = 700;
-                    bombspeed = 150;
-                    clear = true;
-                    setTimeout(function(){
-                        clear = false;
-                    },300)
-                } 
-                mainMusic.load();
-                mainMusic.play();
-                togglePause();
+            if (villianChar.score == 0){
+                villianVoice3.play()
+                loseGame();
             } else {
             resetSpellBall();
             }
@@ -1638,6 +1682,8 @@ function update(){
 let isRunning = false;
 let pausedBossLvl = false;
 
+// pause main game
+
 function togglePause(){
     isRunning = !isRunning;
 
@@ -1646,6 +1692,8 @@ function togglePause(){
     }
 }
 
+// pause boss game
+
 function handlePauseBoss(){
    pausedBossLvl = !pausedBossLvl;
 
@@ -1653,6 +1701,8 @@ function handlePauseBoss(){
         render()
     }
 }
+
+// key event listeners (hacks)
 
 window.addEventListener('keydown', function(event){
     if(event.code == 'KeyP'){
@@ -1666,11 +1716,16 @@ window.addEventListener('keydown', function(event){
     }
 })
 
+// maybe for update 
+
 window.addEventListener('keydown', function(event){
     if(event.code == 'Space'){
         player.shootProjectile()
     }
 })
+
+
+// methods for canvas
 
 function drawRect(x,y,w,h,color){
     context.fillStyle = color
@@ -1697,12 +1752,7 @@ function moveHero(event){
 
 let bframes = 0;
 
-let gameOverImg = new Image();
-gameOverImg.src = './src/gameover.png'
 
-function handleGameOver(){
-    ctx.drawImage(gameOverImg,110,200)
-}
 
 function render(){
     context.clearRect(0,0,bossLvl.width,bossLvl.height)
@@ -1728,7 +1778,7 @@ render();
 
 function animation(){
     ctx.clearRect(0,0,canvas.width,canvas.height)
-    printGems();
+    printToast();
     printBombs();
     printMonster();
     printflyMonster();
@@ -1745,17 +1795,15 @@ function animation(){
         ctx.fillText('Toast: ' + points, 10, 50);
     }
     if(pickedStory == true){
-        ctx.fillText("Toast: " + points + "/80",10,50)
+        ctx.fillText("Toast: " + points + "/100",10,50)
     }
-    if(points == 1 && pickedStory == true){
+    if(points == 100 && pickedStory == true){
         if(pausedBossLvl == true){
             pausedBossLvl = false
         }
         togglePause();
         mainMusic.pause()
         spellBall.speed = 5;
-        bossLoadingSound.load();
-        bossLoadingSound.play();
         bossLoadingScreen();
     }
     if(frozen == true){
@@ -1774,5 +1822,3 @@ window.addEventListener('resize', function(){
     canvasPos = canvas.getBoundingClientRect();
     console.log(canvasPos)
 });
-
-// check if the boss level needs this ^
