@@ -1596,7 +1596,7 @@ function update(){
         let villLvl = 0.03;
         villianChar.y += (spellBall.y - (villianChar.y + villianChar.height/2)) * villLvl;
         
-        if(spellBall.y + spellBall.radius > bossLvl.height || spellBall.y - spellBall.radius < 0){
+        if(spellBall.y + spellBall.radius >= bossLvl.height || spellBall.y - spellBall.radius <= 0){
             spellBall.velocityY= -spellBall.velocityY
         }
 
@@ -1797,7 +1797,7 @@ function animation(){
     if(pickedStory == true){
         ctx.fillText("Toast: " + points + "/100",10,50)
     }
-    if(points == 100 && pickedStory == true){
+    if(points == 1 && pickedStory == true){
         if(pausedBossLvl == true){
             pausedBossLvl = false
         }
@@ -1820,5 +1820,4 @@ animation()
 
 window.addEventListener('resize', function(){
     canvasPos = canvas.getBoundingClientRect();
-    console.log(canvasPos)
 });
