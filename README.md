@@ -10,13 +10,15 @@ iamDuck is a easy to learn game, where the user will be playing a baby duck that
 
 The longer the user survives the quicker the obstacle will appear making it an repeative game game which is know to highly addictive.Each time the user aiming to achieve a higher score then their last.
 
-![altText](https://media.giphy.com/media/v6UQlTPXQEN6HOW83T/giphy.gif)
+![](https://media.giphy.com/media/DhWwZyYSXaqpoXqiTW/giphy.gif)
 
 2) Story Mode
 
 Collect x amount of toast spirtes in order to face the reaper of hell. To win the boss level the player will have to bounce a soul back and fourth avoiding that the boss doesnt score on the player (not reflecting the soul back). If the player fails to reflect the soul 3 times the game will be over and the player will have the option of starting again from collecting toast spirtes or going back to the Home Page.
 
-![altText](https://media.giphy.com/media/eRHh6UnyBExob2S8nI/giphy.gif)    
+![story](https://media.giphy.com/media/Y8UEdOgfbbpgHmHalI/giphy.gif)
+
+![boss](https://media.giphy.com/media/ATzI99d3p0SCKy06s1/giphy.gif)    
 
 ## Functionality
 
