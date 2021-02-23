@@ -95,5 +95,43 @@ The boss level is structure after the famous design ping pong game, the player w
  - Power up that will freeze time for a few seconds allowing the bombs/demons.(demons and bombs still cause damage to life)
  - Power up that will clear everything from the screen and prevent anything from appearing within 1 second.
 
+## Credits
+
+##### Artwork & design 
+
+By Darwin Tapia
+- Instagram: https://www.instagram.com/stay.slump/
+
+##### Sprites
+
+- Duck By Lorenavldz09
+- Demons By Ben (Fome)
+- Reaper Boss By Wiffles
+- Toast Sprites By Darwin Tapia
+- Hearts By Gify
+- Bombs By Gify
+- Power Ups By Gify
+
+
+#### Backgrounds
+
+- Home Page By Darwin Tapia
+- Boss Loading By Darwin Tapia
+- Boss Winning By Darwin Tapia
+- Boss Losing By Darwin Tapia
+- Normal Lost By Darwin Tapia
+- Survival Instruction & Story Instructions By Darwin Tapia 
+- Power Up by Darwin Tapia
+- StoryLine - Gify
+
+#### Music
+
+- Main Game Music = Scott Pilgrim's Fairy Fountain 
+- Boss Music By OpenGameArt
+
+#### Sound Effects
+
+- All Sound Effects by OpenGameArt
+
 
 
