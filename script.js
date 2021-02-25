@@ -314,7 +314,7 @@ ctx.font = "50px Georgia"
 // mouse interaction 
 
 let canvasPos = canvas.getBoundingClientRect();
-console.log(canvasPos)
+
 const mouse = {
     x: canvas.width/2,
     y: canvas.height/2,
