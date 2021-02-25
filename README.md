@@ -1,6 +1,6 @@
 # iamDuck
 
-
+![altText](https://media.giphy.com/media/3xvNxkQLsTqeVZpIzI/giphy.gif)
 
 ## Overview
 
@@ -10,10 +10,15 @@ iamDuck is a easy to learn game, where the user will be playing a baby duck that
 
 The longer the user survives the quicker the obstacle will appear making it an repeative game game which is know to highly addictive.Each time the user aiming to achieve a higher score then their last.
 
+![](https://media.giphy.com/media/DhWwZyYSXaqpoXqiTW/giphy.gif)
+
 2) Story Mode
 
 Collect x amount of toast spirtes in order to face the reaper of hell. To win the boss level the player will have to bounce a soul back and fourth avoiding that the boss doesnt score on the player (not reflecting the soul back). If the player fails to reflect the soul 3 times the game will be over and the player will have the option of starting again from collecting toast spirtes or going back to the Home Page.
 
+![story](https://media.giphy.com/media/Y8UEdOgfbbpgHmHalI/giphy.gif)
+
+![boss](https://media.giphy.com/media/ATzI99d3p0SCKy06s1/giphy.gif)    
 
 ## Functionality
 
@@ -89,6 +94,44 @@ The boss level is structure after the famous design ping pong game, the player w
  - Power up that appear rarely allowing the user to have invincibility and allows the player to be able to destroy these obstacles without being harm
  - Power up that will freeze time for a few seconds allowing the bombs/demons.(demons and bombs still cause damage to life)
  - Power up that will clear everything from the screen and prevent anything from appearing within 1 second.
+
+## Credits
+
+##### Artwork & design 
+
+By Darwin Tapia
+- Instagram: https://www.instagram.com/stay.slump/
+
+##### Sprites
+
+- Duck By Lorenavldz09
+- Demons By Ben (Fome)
+- Reaper Boss By Wiffles
+- Toast Sprites By Darwin Tapia
+- Hearts By Gify
+- Bombs By Gify
+- Power Ups By Gify
+
+
+#### Backgrounds
+
+- Home Page By Darwin Tapia
+- Boss Loading By Darwin Tapia
+- Boss Winning By Darwin Tapia
+- Boss Losing By Darwin Tapia
+- Normal Lost By Darwin Tapia
+- Survival Instruction & Story Instructions By Darwin Tapia 
+- Power Up by Darwin Tapia
+- StoryLine - Gify
+
+#### Music
+
+- Main Game Music = Scott Pilgrim's Fairy Fountain 
+- Boss Music By OpenGameArt
+
+#### Sound Effects
+
+- All Sound Effects by OpenGameArt
 
 
 
